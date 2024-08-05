@@ -8,6 +8,8 @@ The **Huffman Encoding Project** is designed to compress and decompress files us
 
 Huffman compression is a technique used to reduce the size of data files by assigning shorter codes to more frequently occurring characters and longer codes to less frequent characters. The process involves creating a binary tree (Huffman Tree) where each leaf node represents a character from the input data, and the path from the root to the leaf represents the character's code.
 
+![image](https://github.com/user-attachments/assets/a415b8ee-9ae6-4a89-9219-56ee893e59b4)
+
 ### How Huffman Compression Works
 
 1. **Calculate Frequencies**: Determine the frequency of each character in the input data.
