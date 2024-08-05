@@ -7,7 +7,7 @@ Command::Command() : huffman(nullptr)
 
 Command* Command::create(HuffmanCoding* receiver, char**& argv, int& i, int size)
 {
-	//първи аргумент-command - може да бъде info,zip,unzip
+	// First argument - command - can be info, zip, unzip
 	String command = *argv;
 	if (command == "info")
 	{
@@ -19,26 +19,25 @@ Command* Command::create(HuffmanCoding* receiver, char**& argv, int& i, int size
 	{
 		argv++;
 		i++;
-		//arg1 -дадената директория
+		// arg1 - given directory
 		char* arg1 = *argv;
 		argv++;
 		i++;
 		if (i >= size)
 			return nullptr;
-		//arg - име на архива
+		// arg2 - archive name
 		char* arg2 = *argv;
-		//списъка от файлове които трябва да се архивират
+		// List of files to be archived
 		Vector<std::string> item;
-		while (i < size-1)
+		while (i < size - 1)
 		{
 			argv++;
-			
 			item.push_back(*argv);
 			i++;
 		}
-return new Zip(receiver, arg1, arg2,item);
+		return new Zip(receiver, arg1, arg2, item);
 	}
-	//команда за разархивиране на всички файлове
+	// Command for unzipping all files
 	else if (command == "unzip")
 	{
 		argv++;
@@ -49,10 +48,10 @@ return new Zip(receiver, arg1, arg2,item);
 		if (i >= size)
 			return nullptr;
 		char* arg2 = *argv;
-		//място на файла и име на файла които трябва да се разархивира
+		// Location of the archive and the name of the file to be extracted
 		return new Unzip(receiver, arg1, arg2);
 	}
-	//ако е невалидна команда се върни в майна
+	// If it is an invalid command, return nullptr
 	else
 	{
 		return nullptr;

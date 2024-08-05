@@ -10,27 +10,26 @@ public:
 	HuffmanTable(const HuffmanTable& rhs) {};
 	~HuffmanTable() {};
 
-	//tazi funkciq prebroqva broq na vsichki simvoli v dadeniq tekstov fail
+	// Counts the number of all symbols in the given text file
 	void countFr(int* totalFr, size_t size, unsigned char* content);
-	//tazi funkciq suzdava tablica ot 256 znaka s code code length i key
+	// Creates a table of 256 characters with code, code length, and key
 	void initTable(ByteEncoding* table);
 
-	//с тази функция намираме броя на  различните символи в дадения файл
+	// Find the number of different symbols in the given file
 	void generateLength(DataNode* root, int len, ByteEncoding*& arr);
 
-
-	//tazi funkciq suzdava krainata tablica koqto e napravena chrez cannonichno predstavq na huffman
+	// Creates the final table which is made through the canonical representation of Huffman
 	void finalTable(ByteEncoding sortedTable[], ByteEncoding finalTable[], size_t size);
 
 	void restoreCodes(unsigned char* content, size_t size, short* countArr, short* symArr);
 	
-	//тази функция построява дървото
+	// Builds the tree
 	DataNode* buildHuffmanTree(int* freq, size_t size);
 
-	//kanonichno predstavqne na huffman
+	// Canonical representation of Huffman
 	ByteEncoding* cannonicalHuffman(DataNode* root);
 
-	//построяване на таблица
+	// Building the table
 	ByteEncoding* buildTable(unsigned char* content, size_t size);
 private:
 	void clear(DataNode* root);

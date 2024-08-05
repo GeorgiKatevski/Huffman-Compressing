@@ -2,14 +2,14 @@
 #include "Implementations.h"
 struct DataNode
 {
-	//символ
+	// Symbol
 	unsigned char key;
-	//честота на символ
+	// Frequency of the symbol
 	int frequency;
 	DataNode* left, * right;
-	//isInternal ни трябва да проверява когато обхожда ме кой възел е символ с честота 
-	//понеже когато се създаде дървото и някои и като се обединят две две деца родителя им е сбора от тяхните честоти 
-	//и isInternal e false
+	// isInternal is needed to check when traversing which node is a symbol with a frequency
+	// because when the tree is created and two children are combined, their parent has the sum of their frequencies
+	// and isInternal is false
 	bool isInternal;
 	DataNode(const DataNode& rhs)
 	{
@@ -29,10 +29,10 @@ struct DataNode
 
 };
 
-//чрез това дърво осъществяваме алгоритъма на Хъфман
-// В minHeap , символът който се намира в коранът трябва да бъде най-малкия измежду
-//всички ключове в Binary heap
-//същото условие да е вярно за всички node-ве в в даденото Binary Tree
+// through this tree we implement Huffman's algorithm
+// In minHeap, the symbol at the root must be the smallest among
+// all keys in the Binary heap
+// the same condition must be true for all nodes in the given Binary Tree
 class MinHeap
 {
 public:
@@ -42,13 +42,13 @@ public:
 	~MinHeap();
 	MinHeap(DataNode* arr[], size_t size);
 	void insert(DataNode* val);
-	//премахва корена на дървото
+	// Remove the minimum element from the heap
 	void removeMin();
 	size_t size() const
 	{
 		return data.getSize();
 	}
-	//тази функция връща корена на дървото
+	// This function returns the root of the tree
 	DataNode* getMin();
 private:
 	void heapify();

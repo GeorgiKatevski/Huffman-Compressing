@@ -32,10 +32,10 @@ HuffmanCoding::~HuffmanCoding()
 {
 	delete huffmanTable;
 }
-//функция за архивиране на файлове 
-//първият параметър е директория 
-//вторият параметър е име на архива 
-//третият параметър е вектор от стрингове които са имената на фаловете
+// Function to archive files
+// The first parameter is the directory
+// The second parameter is the name of the archive
+// The third parameter is a vector of strings which are the names of the files
 void HuffmanCoding::zip(String toPack, String toCreate,Vector<std::string> item)
 {
 
@@ -49,19 +49,19 @@ void HuffmanCoding::zip(String toPack, String toCreate,Vector<std::string> item)
 	std::cout << "\nPACKING:\n\n";
 
 	size_t nameLength;
-	//съдържание на файла
+	// Content of the file
 	unsigned char* content = new unsigned char[BUFFER_SIZE];
-	//кодираното съдържане
+	// Encoded content
 	unsigned char* encodedContent = new unsigned char[BUFFER_SIZE];
-	//име на файла
-	unsigned char	currFileName[1024];
-	unsigned char	flag;
-	//файлове за архивиране
-	Stack	<size_t>	itemsRemaining; /* файлове за архивиране*/
-	//функцията getFiles,приема директория и вектор в който да се вземат исканите за архив файлове
-	//от тип filetype означава че има пътека до него да се проверява за директории понеже някой от файловете
-	//може да се намира в някоя поддиректория и също трябва да може да се компресира с тези файлове
-	Vector	<FileType>	items = getFiles(toPack,item); 
+	// File name
+	unsigned char currFileName[1024];
+	unsigned char flag;
+	// Files to be archived
+	Stack<size_t> itemsRemaining; /* Files to be archived */
+	// The function getFiles takes a directory and a vector in which to get the desired files for archiving
+	// FileType means that it has a path to it and checks for directories because some files
+	// may be located in a subdirectory and also need to be compressed with these files
+	Vector<FileType>items = getFiles(toPack,item); 
 
 	/* обхождане на всички файлове*/
 	for (size_t i = 0; i < items.getSize(); i++)

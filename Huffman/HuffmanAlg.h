@@ -15,20 +15,20 @@ public:
 	HuffmanCoding& operator=(const HuffmanCoding& rhs);
 
 	~HuffmanCoding();
-	//основни функции
-	//архивиране на файлове
-	void zip(String toPack, String toCreate,Vector<std::string> item);
-	//разархивиране на файлове
+	// Main functions
+	// Archiving files
+	void zip(String toPack, String toCreate, Vector<std::string> item);
+	// Extracting files
 	void unzip(String toUnpack, String dir);
-	//инфо за подаден архив-показа списъка от архивираните файлове
+	// Info about the given archive - shows the list of archived files
 	void info(String toList);
 
 private:
-	//тази функцие кодира съдържанието на даден файл
+	// Encodes the content of a given file
 	void encodeContent(std::ofstream& os, unsigned char* content, unsigned char* encodedContent);
-	//тази функция декодира съдържанието  на даден файл 
+	// Decodes the content of a given file
 	void decodeContent(std::ostream& os, size_t bitsCount, unsigned char* content, unsigned char* decodedContent);
-	//конвериране от wstring kum char arr за да може да се запише на файла 
+	// Converts from wstring to char array so it can be written to the file
 	void wstringToCharArr(std::wstring ws, unsigned char* fileName);
 
 	int	 decode(State* s, short* countArr, short* symbol);

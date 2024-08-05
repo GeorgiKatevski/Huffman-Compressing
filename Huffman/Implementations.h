@@ -4,7 +4,7 @@
 #include <new> /* nothrow */
 
 
-//имплементация на вектор
+//Vector implementation
 template < typename T >
 class Vector
 {

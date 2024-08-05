@@ -2,11 +2,10 @@
 #include "HuffmanAlg.h"
 #include "Implementations.h"
 
-
-//тук се взимат и изпълняват подадените команди
-//zip/unzip/info
-//за командите са използвани някои добри ООП-принцип -наследяване,полиморфизъм,абстракция,енкапсулация
-//от базиса на командата се наследява и от тази команда която е подадена
+// Here, the provided commands are taken and executed
+// zip/unzip/info
+// Object-oriented programming principles such as inheritance, polymorphism, abstraction, and encapsulation are used
+// The command is inherited from the base command class and from the specific command that is given
 class Command
 {
 public:
@@ -19,9 +18,10 @@ public:
 protected:
 	HuffmanCoding* huffman;
 };
-//команда за инфо 
-//за да покаже файловете в даден архивиран файл
-// /info/ /място където се намира файла/ /име на файл/
+
+// Command for info
+// To show the files in a given archived file
+// /info/ /location of the file/ /name of the file/
 class Info : public Command
 {
 public:
@@ -35,10 +35,9 @@ private:
 	String toList;
 };
 
-
-//декомпресиране на всички файлове 
-// /unzip/ /място където се намира архива/ /име на архива/
-/* командите се подават от командния център на програмата*/
+// Decompressing all files
+// /unzip/ /location of the archive/ /name of the archive/
+/* Commands are provided by the program's command center */
 class Unzip : public Command
 {
 public:
@@ -54,32 +53,32 @@ private:
 	String toCreate;
 };
 
-//архивиране на списък от файлове
-//начин на подаване:
+// Archiving a list of files
+// Command format:
 /*
-/zip/  /директория в която се намират файловете/ /име на създадения архив/ /файл1/ /файл2/ /файл.../  etc.
-командите се изпълняват от командния център като първия аргумент е /zip/ 
-вторият аргумент е /директория,където се намират файловете/ 
-третият аргумент /име на архива/ 
-следващите аргументи създават списък от файлове който трябва да се архивира
+/zip/  /directory where the files are located/ /name of the created archive/ /file1/ /file2/ /file.../  etc.
+Commands are executed by the command center with the first argument being /zip/
+The second argument is the /directory where the files are located/
+The third argument is the /name of the archive/
+The following arguments create a list of files to be archived
 */
 class Zip : public Command
 {
 public:
-	Zip(HuffmanCoding* huffman, String toPack,String toCreate,Vector<std::string> item)
+	Zip(HuffmanCoding* huffman, String toPack, String toCreate, Vector<std::string> item)
 		: Command(huffman)
 		, toPack(toPack)
 		, toCreate(toCreate)
-		,item(item)
+		, item(item)
 	{}
 
-	void execute() { huffman->zip(toPack, toCreate,item); }
+	void execute() { huffman->zip(toPack, toCreate, item); }
 
 private:
-	//директория в която се намират файловете
+	// Directory where the files are located
 	String toPack;
-	//име на архива
+	// Name of the archive
 	String toCreate;
-	//списъка от файлове
+	// List of files
 	Vector<std::string> item;
 };

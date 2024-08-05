@@ -1,18 +1,19 @@
 ﻿/*                                      *
-* /Георги Катевски/фн:71899/група:3/    *
+* /Georgi Katevski                      *
 * * * * * * * * * * * * * * * * * * * * *
-*Тема 5:Хъфман-компресиране             *
+* Topic: Huffman Compression          *
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-* Условие:                                                                *
-*Напишете програма, която компресира множество файлове в една директория  *
-*в един файл, използвайки алгоритъма на Хъфман. Трябва да се поддържат    * 
-*следните функционалности:                                                *
-*-създаване на архив по подаден списък от файлове (zip)                   *
-*-разархивиране на един или всички файлове от архива (unzip)              *
-*-извеждане на списък на компресираните файлове с информация за           *
-*нивото на компресия (info)                                               *
+* Requirements:                                                              *
+* Write a program that compresses multiple files in a directory            *
+* into a single file using the Huffman algorithm. The following            *
+* functionalities must be supported:                                        *
+* - Creating an archive from a given list of files (zip)                   *
+* - Extracting one or all files from the archive (unzip)                   *
+* - Displaying a list of compressed files with information about           *
+*   the level of compression (info)                                         *
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 */
+
 
 //#include <string>
 //#include <vector>
@@ -30,25 +31,15 @@ using namespace std;
 
 int main(int argc, char* argv[])
 {
-
-
-
-
-
-	
 	vector <string> items;
 	for (int i = 2; i < argc; i++)
 	{
 		items.push_back(argv[i]);
 	}
 
-	Archiver* arch = new Archiver;
+	Archiver arch;
+	arch.startProgram(argc, argv);
 
-	arch->startProgram(argc, argv);
-	
-	delete arch;
-	
-	
-
+	return 0;
 }
 

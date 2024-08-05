@@ -17,8 +17,8 @@ but with a static library (e.g. scrnsave.h needs scrnsave.lib).
 
 struct FileType
 {
-	//път до който да се стигне до файла
-	//например :C\Program files\games\file.txt
+	// Path to reach the file
+	// Example C:\Program files\games\file.txt
 	std::wstring path;
 
 	bool isDirectory;
@@ -26,16 +26,16 @@ struct FileType
 };
 
 /**
-* използвам windows API за да мога да взема вектор посочените файлове за архивиране
-* с помощ от docs.microsoft.com/en-us/windows/win32/api/ 
+* I use the Windows API to get a vector of the specified files for archiving
+* with help from docs.microsoft.com/en-us/windows/win32/api/
 */
-//идеята е да се подаде дадена директория и вектов от стрингове който е всъщност списък с имена на файлове които 
-//трябва да се архивират 
-//тази функция обхожда дадена директория 
-//и ако срещне името на файл който е от подадения списък 
-//го "конвертира като обект на filetype и му дава пътека и после го добавя в пощен вектор от вид filetype 
-//по този начин взимам всичките файлове от списъка в даден друг списък който после използвам във функцията zip
-//за да ги кодирам и архивирам чрез алгоритъма
+// The idea is to provide a given directory and a vector of strings which is actually a list of file names 
+// that need to be archived.
+// This function traverses the given directory 
+// and if it encounters the name of a file that is in the provided list,
+// it converts it to a FileType object, assigns it a path, and then adds it to an auxiliary vector of type FileType.
+// In this way, I gather all the files from the list into another list which is then used in the zip function
+// to encode and archive them using the algorithm.
 std::string WStringToString(const std::wstring& s)
 {
 	std::string temp(s.length(), ' ');
@@ -45,7 +45,6 @@ std::string WStringToString(const std::wstring& s)
 bool listFiles(std::wstring path, std::wstring mask, Vector<FileType>& items, Vector<std::string>& item)
 {
 	HANDLE hFind = INVALID_HANDLE_VALUE;
-	/*по-долу в текста е дефинирано какво означава*/
 	WIN32_FIND_DATA ffd;
 	/*
 	Contains information about the
@@ -55,7 +54,7 @@ bool listFiles(std::wstring path, std::wstring mask, Vector<FileType>& items, Ve
 
 	Stack<std::wstring> directories;
 	/*
-	стекът е имплементиран в Implementations.h
+	Stack is implemented in Implementations.h
 	*/
 	directories.push(path);
 
@@ -98,10 +97,10 @@ bool listFiles(std::wstring path, std::wstring mask, Vector<FileType>& items, Ve
 				else
 				{
 					std::wstring ws(ffd.cFileName);
-					//конвертираме името на файла 
+					// Convert the file name 
 
-					//когато срещнеш име от подадения списък 
-					//го превърни в FileType и го добави в помощния вектор
+					// When encountering a name from the provided list
+					// Convert it to FileType and add it to the auxiliary vector
 					for (int i = 0; i < item.getSize(); i++)
 					{
 						std::string s1 = item[i];
@@ -150,8 +149,8 @@ bool listFiles(std::wstring path, std::wstring mask, Vector<FileType>& items, Ve
 	return true;
 }
 
-//първия параметър е директорията 
-//втория параметър е списъка от от файлове който не трябва
+// The first parameter is the directory
+// The second parameter is the list of files that should not be included
 Vector<FileType> getFiles(String toPack,Vector<std::string> item)
 {
 	Vector<FileType> files;

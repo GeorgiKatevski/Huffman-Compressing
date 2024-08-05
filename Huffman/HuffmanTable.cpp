@@ -2,23 +2,23 @@
 #include "MinHeap.h"
 #include "Implementations.h"
 
-
-//построяване на таблица 
-//нужна е за самият алгоритъм
-// състои се от символи и тяхната честота във файла 
+// Building the table 
+// Needed for the algorithm itself
+// Consists of symbols and their frequency in the file 
 ByteEncoding* HuffmanTable::buildTable(unsigned char* content, size_t size)
 {
 	int totalFr[256] = { 0, };
 	countFr(totalFr, size, content);
-	//създаваме даървото на хъфман чрез minHeap-(обяснено в MinHeap.h)
-	//256 са елементите в ascii таблицата
+	// Create the Huffman tree using minHeap (explained in MinHeap.h)
+	// 256 are the elements in the ASCII table
 	DataNode* root = buildHuffmanTree(totalFr, 256);
-	//след като построим дървото от това дърво създаваме таблица 
+	// After building the tree, create the table from this tree
 	ByteEncoding* table = cannonicalHuffman(root);
 	clear(root);
 	return table;
 }
-//тази функция преброява колко общо са всички срещания на буквите в дадения тексов файл
+
+// This function counts the total occurrences of each character in the given text file
 void HuffmanTable::countFr(int* totalFr, size_t size, unsigned char* content)
 {
 	for (size_t i = 0; i < size; i++)
@@ -27,25 +27,22 @@ void HuffmanTable::countFr(int* totalFr, size_t size, unsigned char* content)
 	}
 }
 
-//тази функция построява дърво на хъфман 
+// This function builds the Huffman tree
 DataNode* HuffmanTable::buildHuffmanTree(int* freq, size_t size)
 {
-
 	MinHeap mh;
-	//256 знаци в ascii таблицата
+	// 256 characters in the ASCII table
 	for (size_t i = 0; i < 256; i++)
 	{
-	
 		if (freq[i] != 0)
 		{
-			//инсертваме символи с тяхната честота в дадения файл
+			// Insert symbols with their frequency in the given file
 			mh.insert(new DataNode(freq[i], (unsigned char)i, false));
 		}
 	}
 
-//създаваме родител чиито деца са двата най-малки елемента
-//взимаме ги от построеното minHeap дърво 
-
+	// Create a parent whose children are the two smallest elements
+	// Take them from the built minHeap tree 
 	while (mh.size() != 1)
 	{
 		DataNode* left = mh.getMin();
@@ -63,7 +60,7 @@ DataNode* HuffmanTable::buildHuffmanTree(int* freq, size_t size)
 	DataNode* root = mh.getMin();
 	mh.removeMin();
 
-	if (!root->isInternal) //special case of a single element
+	if (!root->isInternal) // Special case of a single element
 	{
 		DataNode* top = new DataNode(root->frequency + 1, '$', true);
 		top->left = root;
@@ -71,11 +68,9 @@ DataNode* HuffmanTable::buildHuffmanTree(int* freq, size_t size)
 	}
 
 	return root;
-
-
-
 }
-//"constructing the tree in a cannonical manner"
+
+// Constructing the tree in a canonical manner
 ByteEncoding* HuffmanTable::cannonicalHuffman(DataNode* root)
 {
 	ByteEncoding* sortedTable = new ByteEncoding[256];
@@ -89,7 +84,6 @@ ByteEncoding* HuffmanTable::cannonicalHuffman(DataNode* root)
 
 	if (firstLetter < 256)
 		sortedTable[firstLetter].code = 0;
-
 
 	int last = firstLetter;
 	for (size_t i = firstLetter + 1; i < 256; i++)
@@ -122,14 +116,13 @@ void HuffmanTable::generateLength(DataNode* root, int len, ByteEncoding*& arr)
 {
 	if (!root)
 		return;
-	//ако е родител който е обединил две деца
+	// If it's a parent that has combined two children
 	if (!root->isInternal)
 		arr[root->key].codeLength = len;
 
 	generateLength(root->left, len + 1, arr);
 	generateLength(root->right, len + 1, arr);
 }
-
 
 void HuffmanTable::initTable(ByteEncoding* table)
 {
@@ -141,8 +134,8 @@ void HuffmanTable::initTable(ByteEncoding* table)
 	}
 }
 
-// s tazi funkciq nie vsushtnost formirame krainata tablica
-//konstruiraneto i ot kanonichen nachin
+// With this function we actually form the final table
+// Constructing it in a canonical manner
 void HuffmanTable::finalTable(ByteEncoding sortedTable[], ByteEncoding finalTable[], size_t size)
 {
 	for (size_t i = 0; i < size; i++)
@@ -153,8 +146,7 @@ void HuffmanTable::finalTable(ByteEncoding sortedTable[], ByteEncoding finalTabl
 	}
 }
 
-
-/* modifying countArr and sym Arr */
+/* Modifying countArr and symArr */
 void HuffmanTable::restoreCodes(unsigned char* content, size_t size, short* countArr, short* symArr)
 {
 	ByteEncoding* basicTable = new ByteEncoding[256];
@@ -163,8 +155,7 @@ void HuffmanTable::restoreCodes(unsigned char* content, size_t size, short* coun
 	int shiftPos = 0;
 	unsigned char buffer = 0;
 
-
-	/* decode tree lengths */
+	/* Decode tree lengths */
 	for (size_t i = 0; i < 160; i++)
 	{
 		size_t lengthToRead = content[i];
@@ -185,8 +176,7 @@ void HuffmanTable::restoreCodes(unsigned char* content, size_t size, short* coun
 		}
 	}
 
-	/* restore tree codes */
-
+	/* Restore tree codes */
 	quickSort(basicTable, 256);
 	int p = 0;
 	for (size_t i = 0; i < 256; i++)

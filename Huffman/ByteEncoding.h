@@ -1,7 +1,6 @@
 ﻿#pragma once
 struct ByteEncoding
 {
-
 	ByteEncoding();
 	ByteEncoding& operator=(const ByteEncoding& rhs);
 	ByteEncoding(unsigned char key, size_t codeLength = 0, unsigned short code = 0);
@@ -11,11 +10,10 @@ struct ByteEncoding
 
 	void print() const;
 
-	//символ 
+	// Symbol
 	unsigned char key;
-	//код на символа
+	// Code for the symbol
 	unsigned short code;
-	//дължината на коа на символа
+	// Length of the code for the symbol
 	size_t codeLength;
-
 };
