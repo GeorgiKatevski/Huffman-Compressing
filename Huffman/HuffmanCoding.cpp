@@ -63,7 +63,7 @@ void HuffmanCoding::zip(String toPack, String toCreate,Vector<std::string> item)
 	// may be located in a subdirectory and also need to be compressed with these files
 	Vector<FileType>items = getFiles(toPack,item); 
 
-	/* обхождане на всички файлове*/
+	// Iterate all files
 	for (size_t i = 0; i < items.getSize(); i++)
 	{
 		if (items[i].isDirectory)
@@ -82,11 +82,11 @@ void HuffmanCoding::zip(String toPack, String toCreate,Vector<std::string> item)
 		{
 			flag = flag::SOF;
 		}
-		//име на файла
+		// File name
 		wstringToCharArr(items[i].path.data(), currFileName); 
 		nameLength = strlen((char*)currFileName);
 
-		//записване на името 
+		// Save the file 
 		fileToPack.write((const char*)&flag, sizeof(flag));
 		fileToPack.write((const char*)&nameLength, sizeof(nameLength));
 		fileToPack.write((const char*)&currFileName, nameLength);
@@ -101,7 +101,7 @@ void HuffmanCoding::zip(String toPack, String toCreate,Vector<std::string> item)
 				break;
 			}
 
-			//кодиране на файла
+			// Encoding the file
 			while (fileToRead)
 			{
 				//-----------------------------------------------------------------------
@@ -128,7 +128,7 @@ void HuffmanCoding::zip(String toPack, String toCreate,Vector<std::string> item)
 				itemsRemaining.top()--;
 				if (itemsRemaining.top() == 0)
 				{
-					//край на файла
+					//End of the file
 					flag = flag::EOD;
 					fileToPack.write((const char*)&flag, sizeof(flag));
 					itemsRemaining.pop();
@@ -138,16 +138,16 @@ void HuffmanCoding::zip(String toPack, String toCreate,Vector<std::string> item)
 
 			fileToRead.close();
 
-		} //флаг-начало на файла
+		} //Flag for the beginning of the file 
 	}
 
 	delete[] content;
 	delete[] encodedContent;
 	fileToPack.close();
 }
-//функцията декомпресира всички файлове от даден архив
-//първия параметър е името на файла
-//втория параметър е директорията където се намира дадения файл
+// This function decompresses all files from a given archive
+// The first parameter is the name of the file
+// The second parameter is the directory where the given file is located
 void HuffmanCoding::unzip(String toUnpack, String dir)
 {
 	std::ifstream fileToUnpack(toUnpack.c_str(), std::ios::binary);
@@ -252,8 +252,8 @@ void HuffmanCoding::unzip(String toUnpack, String dir)
 	fileToUnpack.close();
 }
 
-//тази функция показва имената на всички декомпресиране файлове в даден архив
-//единствен параметър  името на архива 
+// This function displays the names of all decompressed files in a given archive
+// The only parameter is the name of the archive
 void HuffmanCoding::info(String toList)
 {
 	std::ifstream fileToList(toList.c_str(), std::ios::binary);
@@ -349,7 +349,7 @@ void HuffmanCoding::encodeContent(std::ofstream& os, unsigned char* content, uns
 
 		}
 	}
-	//кодиране на съдържанието
+	// encoding the content
 	shiftPos = 0;
 	int m = 7;
 	for (size_t i = 0; i < size; i++)
@@ -448,7 +448,7 @@ void HuffmanCoding::wstringToCharArr(std::wstring ws, unsigned char* fileName)
 	size_t i = 0;
 	for (; i < ws.length(); i++)
 	{
-		buffer[i] = (unsigned char)help[i];  //mqstoto kudeto se namira faila
+		buffer[i] = (unsigned char)help[i];  //the place of the file
 	}
 	buffer[i] = '\0';
 	size_t pos = 0;
